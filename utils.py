@@ -1,6 +1,8 @@
 import subprocess
 
 def assert_gpu_runtime():
-    assert subprocess.call('nvidia-smi', shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0, \
-        '\n\nGPU is not detected! Please change the runtime type:' \
-        '\nSelect Runtime > "Change runtime type" > Select "GPU" under "Hardware accelerator" > re-run the notebook.'
+    error_message = '\n\n⚠️ ERROR: GPU is not detected! ⚠️\n\nPlease change the runtime type via:\n\tSelect "Runtime" > "Change runtime type" > "Hardware accelerator" > "GPU"\nand re-run the notebook.'
+    sp_call = subprocess.call('nvidia-smi', shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # run `nvidia-smi` to see if we can see the GPU, if not raise AssertionError
+    assert  sp_call == 0, f'{error_message}'
+
