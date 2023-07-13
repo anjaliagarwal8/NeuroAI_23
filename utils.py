@@ -3,7 +3,6 @@ import subprocess
 import numpy as np
 import plotly.graph_objs as go
 from torch.utils.data import Dataset, DataLoader
-from nlb_tools.make_tensors import make_train_input_tensors, make_eval_input_tensors
 
 class Dataset(Dataset):
     def __init__(self, heldin, recon_data, vel, conds, device):
@@ -103,6 +102,7 @@ def get_dataloaders(dataset, device):
 
 
 def get_submission_inputs(dataset):
+    from nlb_tools.make_tensors import make_train_input_tensors, make_eval_input_tensors
 
     train_dict = make_train_input_tensors(dataset=dataset,
                                         dataset_name='mc_maze_small',
