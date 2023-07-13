@@ -147,3 +147,22 @@ def get_submission_inputs(dataset):
     num_heldin = train_dict['train_spikes_heldin'].shape[2]
     
     return training_input, training_output, eval_input, tlen, num_heldin
+
+def get_prog_bars(n_epochs):
+    from tqdm.notebook import tqdm
+    bar_format = ('Epochs: {n_fmt} / %s {bar} {percentage:3.0f}%% - ETR:{remaining}' % config_dict['n_epochs'])
+    prog_bar = tqdm(
+        range(n_epochs),
+        unit='epochs',
+        desc='Epochs',
+        bar_format=bar_format,
+        leave=False
+    )
+    loss_bar = tqdm(
+        1,
+        unit='',
+        desc='',
+        bar_format='{desc}',
+        leave=False
+    )
+    return prog_bar, loss_bar
