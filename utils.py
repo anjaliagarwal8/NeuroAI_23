@@ -150,7 +150,7 @@ def get_submission_inputs(dataset):
 
 def get_prog_bars(n_epochs):
     from tqdm.notebook import tqdm
-    bar_format = ('Epochs: {n_fmt} / %s {bar} {percentage:3.0f}%% - ETR:{remaining}' % config_dict['n_epochs'])
+    bar_format = ('Epochs: {n_fmt} / %s {bar} {percentage:3.0f}%% - ETR:{remaining}' % n_epochs)
     prog_bar = tqdm(
         range(n_epochs),
         unit='epochs',
