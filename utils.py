@@ -93,7 +93,7 @@ def get_dataloaders(dataset, device):
         tensor_dataset = Dataset(heldin, recon_data, vel, conds, device)
         dataloader = DataLoader(tensor_dataset,
                                 batch_size = 25,
-                                num_workers = 4,
+                                num_workers = 0,
                                 shuffle = True)
 
         dataloaders[trial_split] = dataloader
