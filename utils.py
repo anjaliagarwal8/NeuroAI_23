@@ -176,3 +176,50 @@ def set_seeds(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
+
+def get_submission_inputs(dataset, trial_split='train_val'):
+    from nlb_tools.make_tensors import make_train_input_tensors, make_eval_input_tensors
+
+    train_dict = make_train_input_tensors(dataset=dataset,
+                                        dataset_name='mc_maze_small',
+                                        trial_split='train' if trial_split=='train_val' else ['train', 'val'], 
+                                        save_file=False,
+                                        include_forward_pred=True)
+
+    eval_dict = make_eval_input_tensors(dataset=dataset,
+                                        dataset_name='mc_maze_small',
+                                        trial_split='val' if trial_split=='train_val' else 'test', 
+                                        save_file=False)
+
+    training_input = torch.Tensor(
+        np.concatenate([
+            train_dict['train_spikes_heldin'],
+            np.zeros(train_dict['train_spikes_heldin_forward'].shape), # zeroed inputs for forecasting
+        ], axis=1))
+
+    training_output = torch.Tensor(
+        np.concatenate([
+            np.concatenate([
+                train_dict['train_spikes_heldin'],
+                train_dict['train_spikes_heldin_forward'],
+            ], axis=1),
+            np.concatenate([
+                train_dict['train_spikes_heldout'],
+                train_dict['train_spikes_heldout_forward'],
+            ], axis=1),
+        ], axis=2))
+
+    eval_input = torch.Tensor(
+        np.concatenate([
+            eval_dict['eval_spikes_heldin'],
+            np.zeros((
+                eval_dict['eval_spikes_heldin'].shape[0],
+                train_dict['train_spikes_heldin_forward'].shape[1],
+                eval_dict['eval_spikes_heldin'].shape[2]
+            )),
+        ], axis=1))
+    
+    tlen = train_dict['train_spikes_heldin'].shape[1]
+    num_heldin = train_dict['train_spikes_heldin'].shape[2]
+    
+    return training_input, training_output, eval_input, tlen, num_heldin
