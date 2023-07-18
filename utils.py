@@ -25,9 +25,11 @@ def assert_gpu_runtime():
     assert  sp_call == 0, f'{error_message}'
 
 # function to plot a 3D scatterplot using plotly
-def create_3d_scatterplot(data_tuples, xaxis_title, yaxis_title, zaxis_title, fig_size=(700, 500)):
+def create_3d_scatterplot(data_tuples, xaxis_title, yaxis_title, zaxis_title, fig_size=(700, 500), use_lines=True):
     data = [go.Scatter3d(x=[v[0]], y=[v[1]], z=[v[2]], mode='markers', name=n) for v, n in data_tuples]
-    data.append(go.Scatter3d(x=[0], y=[0], z=[0], mode='markers', marker=dict(size=2, color='black'), name='center (0,0,0)'))
+    if use_lines:
+      data.extend([go.Scatter3d(x=[0, v[0]], y=[0, v[1]], z=[0, v[2]], mode='lines', line=dict(color='black'), showlegend=False) for v, n in data_tuples])
+    data.append(go.Scatter3d(x=[0], y=[0], z=[0], mode='markers', marker=dict(size=3, color='black'), name='center (0,0,0)'))
     layout_dict = dict(xaxis=dict(title=xaxis_title, range=[-1, 1]),
                        yaxis=dict(title=yaxis_title, range=[-1, 1]),
                        zaxis=dict(title=zaxis_title, range=[-1, 1]),
