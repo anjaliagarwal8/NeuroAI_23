@@ -4,6 +4,7 @@ import subprocess
 import numpy as np
 import plotly.graph_objs as go
 from torch.utils.data import Dataset, DataLoader
+from scipy.ndimage import gaussian_filter1d
 
 class Dataset(Dataset):
     def __init__(self, heldin, recon_data, vel, conds, device):
