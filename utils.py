@@ -426,3 +426,19 @@ def plot_hand_vel(conds_to_plot, pos, conds):
     handles, labels = ax.get_legend_handles_labels()
     labels, handles = zip(*sorted(zip(labels, handles), key=lambda t: int(t[0][9:])))
     ax.legend(handles, labels, ncol=4, fontsize=8, loc='center', bbox_to_anchor=(0.5, 1.03))
+
+def compute_similarity(data_tuples):
+    # Initialize an empty list to store the names for easy access
+    names = []
+    
+    # For each tuple in the data_tuples list
+    for item in data_tuples:
+        # Append the name to the names list
+        names.append(item[1])
+    
+    # For each unique combination of two vectors in the data_tuples list
+    for i in range(len(data_tuples)):
+        for j in range(i+1, len(data_tuples)):
+            # Compute the dot product (similarity) and print it
+            similarity = np.dot(data_tuples[i][0], data_tuples[j][0])
+            print(f'Similarity between {names[i]} and {names[j]}: {similarity:.2f}')
