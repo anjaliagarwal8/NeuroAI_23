@@ -50,12 +50,14 @@ def create_2d_scatterplot(data_tuples, xaxis_title, yaxis_title, fig_size=(700, 
     #                 #    camera=dict(eye=dict(x=1.3, y=-1.3), center=dict(x=0.065, y=0.0)),
     #                    aspectmode='auto')
     # layout = go.Layout(scene=layout_dict, margin=dict(l=0,r=0,b=0,t=0), width=fig_size[0], height=fig_size[1])
+
+    layout=dict(width=fig_size[0], height=fig_size[1], autosize=False,
+           xaxis=dict(range=[-1,1], title=xaxis_title),
+           yaxis=dict(range=[-1,1], title=yaxis_title),
+           autosize=False
+           )
     
-    fig = go.Figure(data=data)
-    fig.update_layout(xaxis_title=xaxis_title, yaxis_title=yaxis_title, width=fig_size[0], height=fig_size[1])
-    fig.update_xaxes(range = [-1,1])
-    fig.update_yaxes(range = [-1,1])
-    return fig.show()
+    return go.Figure(data=data, layout=layout).show(config={'displayModeBar': False})
 
 def add_conds_to_trial_data(trial_data_in, dataset_in):
     cond_fields = ['trial_type', 'trial_version']
