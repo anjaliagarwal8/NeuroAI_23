@@ -40,6 +40,18 @@ def create_3d_scatterplot(data_tuples, xaxis_title, yaxis_title, zaxis_title, fi
     layout = go.Layout(scene=layout_dict, margin=dict(l=0,r=0,b=0,t=0), width=fig_size[0], height=fig_size[1])
     return go.Figure(data=data, layout=layout).show(config={'displayModeBar': False})
 
+def create_2d_scatterplot(data_tuples, xaxis_title, yaxis_title, fig_size=(700, 500), use_lines=True):
+    data = [go.Scatter(x=[v[0]], y=[v[1]], mode='markers', name=n) for v, n in data_tuples]
+    if use_lines:
+      data.extend([go.Scatter(x=[0, v[0]], y=[0, v[1]], mode='lines', line=dict(color='black'), showlegend=False) for v, n in data_tuples])
+    data.append(go.Scatter(x=[0], y=[0], mode='markers', marker=dict(size=2, color='black'), name='center (0,0)'))
+    layout_dict = dict(xaxis=dict(title=xaxis_title, range=[-1, 1]),
+                       yaxis=dict(title=yaxis_title, range=[-1, 1]),
+                       camera=dict(eye=dict(x=1.3, y=-1.3), center=dict(x=0.065, y=0.0)),
+                       aspectmode='cube')
+    layout = go.Layout(scene=layout_dict, margin=dict(l=0,r=0,b=0,t=0), width=fig_size[0], height=fig_size[1])
+    return go.Figure(data=data, layout=layout).show(config={'displayModeBar': False})
+
 
 def add_conds_to_trial_data(trial_data_in, dataset_in):
     cond_fields = ['trial_type', 'trial_version']
