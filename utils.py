@@ -55,7 +55,7 @@ def create_2d_scatterplot(data_tuples, xaxis_title, yaxis_title, fig_size=(700, 
     fig.update_layout(xaxis_title=xaxis_title, yaxis_title=yaxis_title, width=fig_size[0], height=fig_size[1])
     fig.update_xaxes(range = [-1,1])
     fig.update_yaxes(range = [-1,1])
-    return fig.show(config={'displayModeBar': False})
+    return fig.show()
 
 def add_conds_to_trial_data(trial_data_in, dataset_in):
     cond_fields = ['trial_type', 'trial_version']
