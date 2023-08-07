@@ -54,7 +54,6 @@ def create_scatterplot(data_tuples, xaxis_title, yaxis_title, fig_size=(700, 500
     layout=dict(width=fig_size[0], height=fig_size[1], autosize=False,
            xaxis=dict(range=[-1,1], title=xaxis_title, automargin=True),
            yaxis=dict(range=[-1,1], title=yaxis_title, automargin=True),
-           autosize=False
            )
     
     return go.Figure(data=data, layout=layout).show(config={'displayModeBar': False})
