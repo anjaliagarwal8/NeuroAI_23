@@ -47,7 +47,7 @@ def create_2d_scatterplot(data_tuples, xaxis_title, yaxis_title, fig_size=(700, 
     data.append(go.Scatter(x=[0], y=[0], mode='markers', marker=dict(size=2, color='black'), name='center (0,0)'))
     layout_dict = dict(xaxis=dict(title=xaxis_title, range=[-1, 1]),
                        yaxis=dict(title=yaxis_title, range=[-1, 1]),
-                       camera=dict(eye=dict(x=1.3, y=-1.3), center=dict(x=0.065, y=0.0)),
+                    #    camera=dict(eye=dict(x=1.3, y=-1.3), center=dict(x=0.065, y=0.0)),
                        aspectmode='auto')
     layout = go.Layout(scene=layout_dict, margin=dict(l=0,r=0,b=0,t=0), width=fig_size[0], height=fig_size[1])
     return go.Figure(data=data, layout=layout).show(config={'displayModeBar': False})
