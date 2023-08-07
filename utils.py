@@ -40,7 +40,7 @@ def create_3d_scatterplot(data_tuples, xaxis_title, yaxis_title, zaxis_title, fi
     layout = go.Layout(scene=layout_dict, margin=dict(l=0,r=0,b=0,t=0), width=fig_size[0], height=fig_size[1])
     return go.Figure(data=data, layout=layout).show(config={'displayModeBar': False})
 
-def create_2d_scatterplot(data_tuples, xaxis_title, yaxis_title, fig_size=(700, 500), use_lines=True):
+def create_scatterplot(data_tuples, xaxis_title, yaxis_title, fig_size=(700, 500), use_lines=True):
     data = [go.Scatter(x=[v[0]], y=[v[1]], mode='markers', name=n) for v, n in data_tuples]
     if use_lines:
       data.extend([go.Scatter(x=[0, v[0]], y=[0, v[1]], mode='lines', line=dict(color='black'), showlegend=False) for v, n in data_tuples])
