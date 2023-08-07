@@ -50,7 +50,6 @@ def create_scatterplot(data_tuples, xaxis_title, yaxis_title, fig_size=(700, 500
     #                 #    camera=dict(eye=dict(x=1.3, y=-1.3), center=dict(x=0.065, y=0.0)),
     #                    aspectmode='auto')
     # layout = go.Layout(scene=layout_dict, margin=dict(l=0,r=0,b=0,t=0), width=fig_size[0], height=fig_size[1])
-    print("check")
     layout=dict(width=fig_size[0], height=fig_size[1], autosize=False,
            xaxis=dict(range=[-1,1], title=xaxis_title, automargin=True),
            yaxis=dict(range=[-1,1], title=yaxis_title, automargin=True),
